@@ -1,0 +1,127 @@
+
+import java.util.*;
+
+class Pair{
+    String date;
+    String type;
+    int amt;
+    Pair(Date date, String type, int amt){
+        this.date = date.toString();
+        this.type = type;
+        this.amt = amt;
+    }
+}
+
+public class Hello { 
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int checking  = 10000;
+        int saving = 10000;
+        
+        ArrayList<Pair> checking_tra = new ArrayList<>();
+        ArrayList<Pair> saving_tra = new ArrayList<>();
+        
+        
+        while(true){
+            
+        System.out.println("Choose Account, checking or saving or enter q to quit:");
+        String tra = sc.next();
+        if(tra.equals("checking")){
+            
+            System.out.println("choose transaction, credit or debit :");
+            String inner_tra = sc.next();
+            
+            if(inner_tra.equals("credit")){
+                
+                System.out.println("Enter the amount to be credited :");
+                int amt_credit = sc.nextInt();
+                
+                if(amt_credit%500==0 && amt_credit>=500){
+                    
+                    checking+=amt_credit; 
+                    Date date = new Date();
+                    Pair obj = new Pair(date,"credit",amt_credit);
+                    checking_tra.add(obj);
+                }else{
+                    System.out.println("Something went wrong, Try Again");
+                }
+                
+            }else if(inner_tra.equals("debit")){
+                
+                
+                
+                System.out.println("Enter the amount to be debited :");
+                int amt_debit = sc.nextInt();
+                
+                if(amt_debit%500==0 && amt_debit<checking && amt_debit>=500){
+                    
+                    checking-=amt_debit; 
+                    
+                    Date date = new Date();
+                    
+                    Pair obj = new Pair(date,"debit",amt_debit);
+                    checking_tra.add(obj);
+                }else{
+                    System.out.println("Something went wrong, Try Again");
+                }
+            }
+        }else if(tra.equals("saving")){
+            
+            System.out.println("choose transaction, credit or debit :");
+            String inner_tra = sc.next();
+            
+            if(inner_tra.equals("credit")){
+                
+                System.out.println("Enter the amount to be credited :");
+                int amt_credit = sc.nextInt();
+                
+                if(amt_credit%500==0 && amt_credit>=500){
+                    
+                    saving+=amt_credit;
+                    
+                    Date date = new Date();
+                    
+                    Pair obj = new Pair(date,"credit",amt_credit);
+                    saving_tra.add(obj);
+                }else{
+                    System.out.println("Something went wrong, Try Again");
+                }
+                
+            }else if(inner_tra.equals("debit")){
+                
+                System.out.println("Enter the amount to be debited :");
+                int amt_debit = sc.nextInt();
+                
+                if(amt_debit%500==0 && amt_debit<checking && amt_debit>=500){
+                    
+                    saving-=amt_debit;
+                    
+                    Date date = new Date();
+                    
+                    Pair obj = new Pair(date,"debit",amt_debit);
+                    saving_tra.add(obj);
+                }else{
+                    System.out.println("Something went wrong, Try Again");
+                }
+            }
+        }else if(tra.equals("q")){
+            break;
+        }else{
+                    System.out.println("Something went wrong, Try Again");
+        }
+        
+        }
+        System.out.println("Saving ");
+        System.out.println("Account transactions");
+        for(Pair obj : saving_tra){
+            System.out.println(obj.date+" "+obj.type+" "+obj.amt);
+        }
+        System.out.println("Final Balance : "+saving);
+        System.out.println("checking ");
+        System.out.println("Account transactions");
+        for(Pair obj : checking_tra){
+            System.out.println(obj.date+" "+obj.type+" "+obj.amt);
+        }
+        System.out.println("Final balance : "+checking);
+    } 
+}
